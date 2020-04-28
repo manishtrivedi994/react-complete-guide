@@ -1,0 +1,99 @@
+import React, { useState, Component } from 'react';
+import './App.css';
+import Person from './Person/Person'
+import person from './Person/Person';
+class App extends Component {
+  
+    state = {
+      persons: [
+        {name: 'Manish', age: 23},
+        {name: 'Manu', age: 24},
+        {name: 'Max', age: 32}
+      ],
+      otherState: 'Some other state',
+      showPersons: false
+    }
+
+    switchNameHandler = (newName) => {
+      //console.log('Was clicked!');
+      //DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
+      this.setState({
+        persons: [
+          {name: newName, age: 23},
+          {name: 'Manu', age: 24},
+          {name: 'Max', age: 37}
+        ]
+      })
+    }
+    
+    nameChangedHandler = (event) => {
+      this.setState({
+        persons: [
+          {name: 'Max', age: 23},
+          {name: event.target.value, age: 24},
+          {name: 'Max', age: 26}
+        ]
+      })
+    }
+
+togglePersonsHandler = () => {
+  const doesShow = this.state.showPersons;
+  this.setState({showPersons: !doesShow});
+}
+
+    render() {
+      
+      const style = {
+        backgroundColor: 'white',
+        font: 'inherit',
+        border: '1px solid blue',
+        padding: '8px',
+        cursor: 'pointer'
+
+      };
+
+      let persons = null;
+      if(this.state.showPersons) {
+        persons = (
+          <div>
+          <Person 
+            name={this.state.persons[0].name} 
+            age={this.state.persons[0].age}/>
+          <Person  
+            name={this.state.persons[1].name} 
+            age={this.state.persons[1].age}
+            click={this.switchNameHandler.bind(this, 'Max!')}
+            changed={this.nameChangedHandler}>My hobby: Racing</Person>
+          <Person 
+            name={this.state.persons[2].name} 
+            age={this.state.persons[2].age}/>
+        </div>
+        );
+      }                   
+
+      return (
+        <div className="App">
+          <h1>Hi, I am a React App</h1>
+          <h1>Another Heading</h1> 
+          <button 
+            style={style}
+            onClick={this.togglePersonsHandler}>Switch Name</button> 
+          
+          {persons}
+             
+        </div>
+      );
+    }
+
+    //this.switchNameHandler.bind(this, 'Maximilian')                   ------>used in button to change names dynamically
+    //React.createElement('div',{className: 'App'},React.createElement('h1',null,'Hi, I am a react app!!!'))
+    //<button onClick={() => this.switchNameHandler('Maximilian!!')}>Switch Name</button> This can also be use in place of <button onClick={this.switchNameHandler.bind(this, 'Maximilian')}>Switch Name</button> 
+}
+
+export default App;
+
+
+
+
+
+

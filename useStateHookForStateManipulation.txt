@@ -1,0 +1,49 @@
+import React, { useState } from 'react';
+import './App.css';
+import Person from './Person/Person'
+const App = props => {
+  
+    const [ personsState, setPersonsState ] = useState({
+      persons: [
+        {name: 'Manish', age: 23},
+        {name: 'Manu', age: 24},
+        {name: 'Max', age: 32}
+      ]
+    });
+
+    const [ otherState, setOtherState ] = useState('some other value');
+    console.log(personsState, otherState);
+
+    const switchNameHandler = () => {
+      //console.log('Was clicked!');
+      //DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
+      setPersonsState({
+        persons: [
+          {name: 'Maximilian', age: 23},
+          {name: 'Manu', age: 24},
+          {name: 'Max', age: 37}
+        ]
+      });
+      };
+  
+    return (
+    <div className="App">
+      <h1>Hi, I am a React App</h1>
+      <h1>Another Heading</h1>
+      <button onClick={switchNameHandler}>Switch Name</button>
+      <Person name={personsState.persons[0].name} age={personsState.persons[0].age}/>
+      <Person  name={personsState.persons[1].name} age={personsState.persons[1].age}>My hobby: Racing</Person>
+      <Person name={personsState.persons[2].name} age={personsState.persons[2].age}/>
+    </div>
+    );
+    //React.createElement('div',{className: 'App'},React.createElement('h1',null,'Hi, I am a react app!!!'))
+    
+};
+
+export default App;
+
+
+
+
+
+
