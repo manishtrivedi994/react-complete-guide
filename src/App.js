@@ -4,6 +4,7 @@ import './App.css';
 import Person from './Person/Person'
 import styled from 'styled-components'
 
+
 const StyledButton = styled.button`
     background-color: ${props=> props.alt ? 'red' : 'green'};
     color: white;
@@ -15,7 +16,7 @@ const StyledButton = styled.button`
       background-color: ${props=> props.alt ? 'salmon' : 'lightgreen'};
       color: black;
     }
-`;
+`
 class App extends Component {
   
     state = {
