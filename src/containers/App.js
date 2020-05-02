@@ -1,23 +1,8 @@
 import React, { useState, Component } from 'react';
-//import Radium, { StyleRoot} from 'radium';
+import Radium, { StyleRoot} from 'radium';
 import './App.css';
-import Person from './Person/Person'
-import styled from 'styled-components'
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
+import Persons from '../components/Persons/Persons'
 
-
-const StyledButton = styled.button`
-    background-color: ${props=> props.alt ? 'red' : 'green'};
-    color: white;
-    font: inherit;
-    border: 1px solid blue;
-    padding: 8px;
-    cursor: pointer;
-    &:hover {
-      background-color: ${props=> props.alt ? 'salmon' : 'lightgreen'};
-      color: black;
-    }
-`
 class App extends Component {
   
     state = {
@@ -29,6 +14,7 @@ class App extends Component {
       otherState: 'Some other state',
       showPersons: false
     }
+    
     
     nameChangedHandler = (event, id) => {
       const personIndex = this.state.persons.findIndex(p => {
@@ -81,22 +67,17 @@ class App extends Component {
       if(this.state.showPersons) {
         persons = (
           <div>
-            {this.state.persons.map( (person, index) => {
-              return <ErrorBoundary key = {person.id}>
-                <Person
-                  click= {() => this.deletePersonHandler(index)}
-                  name = {person.name}
-                  age = {person.age}
-                  changed = {(event) => this.nameChangedHandler(event, person.id)}/>
-              </ErrorBoundary>
-            })}
+            <Persons
+            persons={this.state.persons}
+            clicked= {this.deletePersonHandler}
+            changed={this.nameChangedHandler}/>
           </div>
         );
-        //style.backgroundColor= 'red';
-        //style[':hover']= {
-        //backgroundColor: 'salmon',
-        //color: 'black'
-        //}
+          style.backgroundColor= 'red';
+          style[':hover']= {
+            backgroundColor: 'salmon',
+            color: 'black'
+          }
 
       }    
       
@@ -112,10 +93,10 @@ class App extends Component {
         <div className="App">
           <h1>Hi, I am a React App</h1>
           <p className={classes.join(' ')}>Another Heading</p> 
-          <StyledButton 
-            alt={this.state.showPersons}
-            onClick={this.togglePersonsHandler}>Toggle Persons
-          </StyledButton> 
+          <button 
+          onClick={this.togglePersonsHandler}
+          style = {style}>Toggle Persons
+          </button> 
           
           {persons}
              
@@ -129,4 +110,4 @@ class App extends Component {
 }
 
 //export default Radium(App);
-export default App;
+export default Radium(App);
